@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Homepage
+{% endblock %}
+
+{% block content %}
+	<div style="margin-top:5%">
+		{% if user.is_authenticated %}
+	  	  <h1 class="white center">Welcome, {{ user.username }}</h1>
+		  <div style="margin:auto; position:relative; width: 600px;">
+			  <input type="button" class="classic byellow firstl" onclick="location.href='{% url 'logout' %}';" value="logout" />
+			  <input type="button" class="classic byellow" onclick="location.href='{% url 'chat_create' %}';" value="create new chat" />
+			</div>
+			<br>
+			<br>
+		  	<div>
+				<div style="width:15%; float: left; text-align:center; margin-left:30%; padding-bottom:2%;">
+					<h2 class="orange center">Join chat</h2>
+					<div style="width:100%; float: left; text-align:center;">
+						{% for chat in chat_list %}
+							<br>
+							<input type="button" class="classic control" onclick="location.href='{{ chat.get_absolute_url }}';" value="{{ chat.title }}" />
+						{% endfor %}
+					</div>
+				</div>
+				<div style="width:15%; float: left; margin-left:5%; text-align:center;">
+					<h2 class="orange center">Join new chat</h2>
+					<div style="width:98%; float: left; text-align:center; border-style:solid; border-color:#7a6563; padding-bottom:2%;"><form method="post" action="">
+						{% csrf_token %}
+						{% for field in join_form %}
+							<p class="white fatty center">{{ field.label }}: {{ field }}</p>
+						{% endfor %}
+						<button type="submit" class="classic long" value="Join">Join</button>
+					</form></div>
+				</div>
+			</div>
+		{% else %}
+			<h1 class="white center">You are not logged in</h1>
+			<div style="width:15%; margin:auto; position:relative; text-align:center;"><input type="button" class="classic error" onclick="location.href='{% url 'login' %}';" value="Login Pls" /></div>
+		{% endif %}
+  	</div>
+{% endblock %}

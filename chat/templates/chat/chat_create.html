@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Chat Create
+{% endblock %}
+
+{% block content %}
+	<div style="margin-top:10%">
+		{% if user.is_authenticated %}
+			<h1 class="white center">Create new chat</h1>
+			<br>
+			<div style="width:15%; margin:auto; position:relative; text-align:center;">
+				<form action="" method="post">
+					{% csrf_token %}
+					{% for field in form %}
+						<p class="white fatty center">{{ field.label }}: {{ field }}</p>
+						{% for error in field.errors %}
+		          			<p style="color: red">{{ error }}</p>
+		        		{% endfor %}
+					{% endfor %}
+					<input type="submit" value="Create">
+				</form>
+			</div>
+		{% else %}
+			<h1 class="white center">You are not logged in</h1>
+			<div style="width:15%; margin:auto; position:relative; text-align:center;"><input type="button" class="classic error" onclick="location.href='{% url 'login' %}';" value="Login Pls" /></div>
+		{% endif %}
+  	</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Register
+{% endblock %}
+
+{% block content %}
+  <div style="margin-top:10%">
+	  <h1 class="white center">Login page</h1>
+	  <br>
+  		<form method="post" action="">
+    		{% csrf_token %}
+			{% for field in form %}
+				<p class="white fatty center">{{ field.label }}: {{ field }}</p>
+				{% for error in field.errors %}
+          			<p style="color: red">{{ error }}</p>
+        		{% endfor %}
+			{% endfor %}
+    	<div style="margin:auto; position:relative; width: 600px;">
+			<button type="submit" class="classic firstr">Login</button>
+			<input type="button" class="classic bred" onclick="location.href='{% url 'register' %}';" value="Or Register" />
+		</div>
+  		</form>
+	</div>
+{% endblock %}

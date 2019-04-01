@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Register
+{% endblock %}
+
+{% block content %}
+  <!-- <h2>Sign up</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+	{% for field in form %}
+		<p>{{ field.label }}: {{ field }}</p>
+		{% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+	{% endfor %}
+    <button type="submit">Sign up</button>
+  </form>
+  <br>
+  <a href="{% url 'login' %}">Or Login</a> -->
+
+  <div style="margin-top:10%">
+	  <h1 class="white center">Sign Up Page</h1>
+  		<form method="post" action="">
+    		{% csrf_token %}
+			{% for field in form %}
+				<div class="white fatty center">{{ field.label }}: <div style="margin:auto; position:relative; width:300px;">{{ field }}</div> </div>
+				<br>
+				{% for error in field.errors %}
+          			<p style="color: red">{{ error }}</p>
+        		{% endfor %}
+			{% endfor %}
+		<br>
+    	<div style="margin:auto; position:relative; width: 600px;">
+			<button type="submit" class="classic firstr">Sign Up</button>
+			<input type="button" class="classic bred" onclick="location.href='{% url 'login' %}';" value="Or Login" />
+		</div>
+  		</form>
+	</div>
+{% endblock %}

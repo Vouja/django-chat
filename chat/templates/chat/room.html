@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="{% static "css/styles.css" %}" rel="stylesheet" type="text/css">
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+</head>
+<body>
+	<h1 class="white center">Welcome to chat id {{ chat }}</h1>
+    <div style="width:80%; margin:auto; position:relative; text-align:center;">
+		<textarea id="chat-log" cols="100" rows="20" style="resize: none;" readonly></textarea>
+		<br>
+		<br>
+    	<input id="chat-message-input" type="text" size="60"/>
+		<br>
+		<br>
+    	<input id="chat-message-submit" class="classic stable" type="button" value="Send"/>
+	</div>
+</body>
+<script>
+    var roomName = {{ room_name_json }};
+
+    var chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/chat/' + roomName + '/');
+
+	var textarea = document.getElementById('chat-log');
+
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var message = data['message'];
+		var username = data['username']
+        document.querySelector('#chat-log').value += (username+': ')+(message + '\n');
+		textarea.scrollTop = textarea.scrollHeight;
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        var messageInputDom = document.querySelector('#chat-message-input');
+        var message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message,
+			'user_id': {{ user }},
+			'chat_id': {{ chat }},
+        }));
+
+        messageInputDom.value = '';
+    };
+
+	setTimeout(ready, 1000)
+	function ready() {
+         chatSocket.send(JSON.stringify({
+            'message': "reload_messages",
+			'user_id': {{ user }},
+			'chat_id': {{ chat }},
+        }));
+    };
+
+	document.onkeydown = function()
+	{
+    	switch (event.keyCode)
+    	{
+        	case 116 :
+            	event.returnValue = false;
+            	event.keyCode = 0;
+            	return false;
+        	case 82 :
+            	if (event.ctrlKey)
+            	{
+                	event.returnValue = false;
+                	event.keyCode = 0;
+                	return false;
+            	}
+    	}
+	}
+</script>
+</html>

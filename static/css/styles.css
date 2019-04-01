@@ -1,0 +1,80 @@
+body {
+	font-family: "Gill Sans", sans-serif;
+	background-color: #7fd1b9;
+}
+.red {
+	color: #E27D60;
+}
+.orange {
+	color: #de6e4b;
+}
+.purple {
+	color: #C38D9E;
+}
+.white {
+	color: #f0f7f4;
+}
+.lightblue {
+	color: #99e1d9;
+}
+.lightbrown {
+	color: #705d56;
+}
+
+.center{
+	text-align: center;
+}
+.fatty{
+	font-weight: 600;
+}
+
+.classic {
+	padding: 2% 4%;
+	border-radius: 2px;
+	transition-duration: 0.4s;
+	box-shadow: disabled;
+	border: none;
+	font-weight: 600;
+	background-color: #4CAF50;
+	color: white;
+}
+.bred {
+	background-color: #E27D60;
+}
+.byellow {
+	background-color: #bbbe64;
+}
+.firstr {
+	margin-left: 32.5%;
+}
+.firstl {
+	margin-left: 30%;
+}
+.long {
+	padding: 3% 10%;
+}
+.stable {
+	width: 250px;
+	padding: 1% 0%;
+}
+.control {
+	padding: 5% 0%;
+	width: 100%;
+	border-radius: 0px;
+	background-color: #28666e;
+}
+
+.error {
+	padding: 5% 0%;
+	width: 100%;
+	border-radius: 0px;
+	background-color: #E27D60;
+}
+/* .along:hover {
+	border: 2px solid #E27D60;
+} */
+
+.classic:hover {
+  background-color: #32292f;
+  color: white;
+}
