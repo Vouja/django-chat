@@ -10,6 +10,9 @@ class Chat(models.Model):
 	def get_absolute_url(self):
 		return reverse('chat', kwargs={'chat_id': self.id})
 
+	def __str__(self):
+		return self.title
+
 
 
 class Message(models.Model):
